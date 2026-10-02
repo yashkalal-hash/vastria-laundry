@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | FreshFold Laundry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background: radial-gradient(circle at top, #e0f2fe, #f8fafc);">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-crown"></i></div>
+        <div>
+          <span>VASTRIA</span>
+          <span class="logo-subtext">Premium Garment Care</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="book.html">Book Pickup</a></li>
+        <li><a href="track.html">Track Order</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-user-actions"></div>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width: 460px; margin: 4rem auto 5rem;">
+    <div class="booking-card">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <div class="logo-icon" style="margin: 0 auto 1rem; width: 50px; height: 50px;">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h2 style="font-size: 1.6rem; font-weight: 800;">Welcome Back</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Sign in to your VASTRIA account</p>
+      </div>
+
+      <!-- Quick Demo Credentials Box -->
+      <div style="background: var(--bg-main); border: 1.5px dashed var(--primary); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.5rem;">
+        <div style="font-size: 0.8rem; font-weight: 800; color: var(--primary-dark); text-transform: uppercase; margin-bottom: 6px;">
+          ⚡ 1-Click Quick Demo Login:
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="btn btn-secondary btn-sm" style="flex: 1; font-size: 0.8rem;" onclick="fillDemo('admin@vastria.com', 'admin123')">
+            👑 Admin
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" style="flex: 1; font-size: 0.8rem;" onclick="fillDemo('customer@vastria.com', 'user123')">
+            👤 Customer
+          </button>
+        </div>
+      </div>
+
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="login-email" class="form-input" placeholder="name@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="login-password" class="form-input" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg" id="btn-login-submit" style="width: 100%; margin-top: 0.5rem;">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+      </form>
+
+      <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+        Don't have an account? <a href="register.html" style="color: var(--primary); font-weight: 700;">Create Account</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    function fillDemo(email, pass) {
+      document.getElementById('login-email').value = email;
+      document.getElementById('login-password').value = pass;
+      showToast(`Filled demo credentials for ${email}`, 'info');
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const btn = document.getElementById('btn-login-submit');
+
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Signing in...`;
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          setAuthSession(data.token, data.user);
+          showToast(`Welcome back, ${data.user.name}!`, 'success');
+
+          setTimeout(() => {
+            if (data.user.role === 'admin') {
+              window.location.href = 'admin.html';
+            } else {
+              window.location.href = 'dashboard.html';
+            }
+          }, 600);
+        } else {
+          showToast(data.message || 'Login failed. Please check credentials.', 'error');
+          btn.disabled = false;
+          btn.innerHTML = `<i class="fas fa-sign-in-alt"></i> Sign In`;
+        }
+      } catch (err) {
+        showToast('Network error during login.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fas fa-sign-in-alt"></i> Sign In`;
+      }
+    }
+  </script>
+</body>
+</html>

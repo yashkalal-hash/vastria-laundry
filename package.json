@@ -1,0 +1,30 @@
+{
+  "name": "freshfold-laundry-system",
+  "version": "1.0.0",
+  "description": "Full-Stack Laundry & Dry Cleaning Management System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "laundry",
+    "dry-cleaning",
+    "express",
+    "sqlite",
+    "full-stack"
+  ],
+  "author": "FreshFold Team",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.x"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.6.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3"
+  }
+}

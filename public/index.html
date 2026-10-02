@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VASTRIA - Udaipur's Premier Laundry & Dry-Cleaning Service</title>
+  <meta name="description" content="VASTRIA - Udaipur's finest Hydrocarbon dry cleaning, shoe cleaning spa, curtain & carpet care with free doorstep pickup and 24h express turnaround.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Sticky Left Contact Action Panel (Call & WhatsApp) -->
+  <div class="sticky-contact-panel">
+    <a href="tel:+918005975274" class="sticky-contact-btn sticky-call" title="Call Us Now">
+      <div class="sticky-icon"><i class="fas fa-phone-alt"></i></div>
+      <div class="sticky-text">Call Now</div>
+    </a>
+    <a href="https://wa.me/918005975274?text=Hi%20VASTRIA%2C%20I%20want%20to%20schedule%20a%20laundry%20pickup" target="_blank" class="sticky-contact-btn sticky-whatsapp" title="WhatsApp Us">
+      <div class="sticky-icon"><i class="fab fa-whatsapp"></i></div>
+      <div class="sticky-text">WhatsApp</div>
+    </a>
+  </div>
+
+  <!-- Top Notification Bar -->
+  <div class="topbar">
+    <div class="container topbar-container">
+      <div class="topbar-info">
+        <span><i class="fas fa-map-marker-alt text-warning"></i> Goutam Budh Nagar, Near by Dainik Navjyoti, Savina, Udaipur</span>
+        <span><i class="fas fa-clock text-warning"></i> Mon - Sun: 8:00 AM - 9:00 PM</span>
+      </div>
+      <div class="topbar-info">
+        <a href="tel:+918005975274"><i class="fas fa-phone-alt"></i> +91 8005975274</a>
+        <a href="tel:+919413752745"><i class="fas fa-phone-alt"></i> +91 9413752745</a>
+        <span class="topbar-badge"><i class="fas fa-gift"></i> FLAT 20% OFF ON 1ST ORDER</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-crown"></i></div>
+        <div>
+          <span>VASTRIA</span>
+          <span class="logo-subtext">Premium Garment Care</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#delivery">Delivery Options</a></li>
+        <li><a href="#process">7-Step Process</a></li>
+        <li><a href="#calculator">Price Estimator</a></li>
+        <li><a href="#why-us">Why VASTRIA</a></li>
+        <li><a href="track.html">Track Order</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-user-actions">
+        <!-- Injected via main.js -->
+        <a href="login.html" class="btn btn-secondary btn-sm"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <button onclick="openBookingModal()" class="btn btn-gold btn-sm"><i class="fas fa-truck-pickup"></i> Book Pickup</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div>
+        <div class="offer-badge">
+          <i class="fas fa-sparkles"></i> FLAT 20% OFF ON 1ST ORDER • FREE DOORSTEP PICKUP
+        </div>
+        <h1 class="hero-title">
+          Udaipur's Premier <br><span class="gold-text">Laundry &amp; Dry-Cleaning</span> Service
+        </h1>
+        <p class="hero-desc">
+          Experience world-class cleaning with German Hydrocarbon eco-friendly solutions, Italian spotting machinery, and expert artisan care for your most precious garments.
+        </p>
+
+        <ul class="hero-features">
+          <li><i class="fas fa-check-circle"></i> World – Renowned Dry-Cleaning Technology</li>
+          <li><i class="fas fa-check-circle"></i> 99% Stain Removal Guarantee* &amp; Zero Shrinkage</li>
+          <li><i class="fas fa-check-circle"></i> Free Home Pickup &amp; Delivery Across Udaipur*</li>
+        </ul>
+
+        <div class="hero-actions">
+          <button onclick="openBookingModal()" class="btn btn-gold btn-lg">
+            <i class="fas fa-calendar-check"></i> Book Free Pickup
+          </button>
+          <a href="tel:+918005975274" class="btn btn-secondary btn-lg" style="color: var(--primary-dark);">
+            <i class="fas fa-phone-alt"></i> Call +91 8005975274
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Booking / Track Hero Card -->
+      <div class="hero-book-card">
+        <h3><i class="fas fa-bolt" style="color: var(--secondary);"></i> Instant Pickup in 60s</h3>
+        <p>Schedule a doorstep pickup or check live order tracking</p>
+
+        <form id="hero-quick-book-form" onsubmit="handleHeroQuickSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Service Type</label>
+            <select id="hero-service-type" class="form-select" required>
+              <option value="Premium Dry Cleaning">Premium Dry Cleaning (Hydrocarbon)</option>
+              <option value="Daily Laundry Wash & Steam Iron">Daily Laundry Wash &amp; Steam Iron</option>
+              <option value="Shoe Cleaning & Spa">Shoe Cleaning &amp; Restoration Spa</option>
+              <option value="Leather & Bag Care">Leather Care &amp; Handbag Spa</option>
+              <option value="Curtain & Carpet Care">Curtain &amp; Carpet Deep Cleaning</option>
+            </select>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Your Name</label>
+              <input type="text" id="hero-cust-name" class="form-input" placeholder="e.g. Rahul Sharma" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" id="hero-cust-phone" class="form-input" placeholder="98XXXXXXXX" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Pickup Location in Udaipur</label>
+            <input type="text" id="hero-cust-address" class="form-input" placeholder="Area / Colony / House No." required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+            <i class="fas fa-paper-plane"></i> Schedule Pickup Now
+          </button>
+        </form>
+
+        <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Have a Tracking ID?</span>
+          <a href="track.html" style="font-size: 0.88rem; font-weight: 700; color: var(--primary);">
+            Track Status <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Stats Section -->
+  <section class="stats-section">
+    <div class="container stats-grid">
+      <div class="stat-item">
+        <h3>1,00,000+</h3>
+        <p>Orders Delivered</p>
+      </div>
+      <div class="stat-item">
+        <h3>50,000+</h3>
+        <p>Happy Customers in Udaipur</p>
+      </div>
+      <div class="stat-item">
+        <h3>99.8%</h3>
+        <p>On-Time Delivery Rate</p>
+      </div>
+      <div class="stat-item">
+        <h3>100%</h3>
+        <p>Eco-Safe Hydrocarbon</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Services Section -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Our Specialized Care</span>
+        <h2 class="section-title">World-Class Garment &amp; Fabric Care</h2>
+        <p class="section-subtitle">One-stop shop for all your cleaning needs with European machinery and eco-certified organic solutions.</p>
+      </div>
+
+      <div class="services-grid">
+        
+        <!-- Service 1: Dry Cleaning -->
+        <div class="service-card">
+          <div class="service-icon-wrap"><i class="fas fa-spray-can"></i></div>
+          <h3 class="service-title">Premium Dry Cleaning</h3>
+          <p class="service-desc">Designer wear, heavy ethnic wear, sarees &amp; woollens processed with German eco-friendly Hydrocarbon solvent.</p>
+          <ul class="service-features-list">
+            <li><i class="fas fa-check-circle"></i> Woolmark certified Hydrocarbon process</li>
+            <li><i class="fas fa-check-circle"></i> Zero fabric shrinkage guaranteed</li>
+            <li><i class="fas fa-check-circle"></i> Complete colour bleeding protection</li>
+          </ul>
+          <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem;">
+            <span style="font-weight: 800; color: var(--primary); font-size: 1.25rem;">Starting ₹199</span>
+            <button onclick="openBookingModal('Premium Dry Cleaning')" class="btn btn-outline btn-sm">Book Service</button>
+          </div>
+        </div>
+
+        <!-- Service 2: Shoe Spa -->
+        <div class="service-card">
+          <div class="service-icon-wrap"><i class="fas fa-shoe-prints"></i></div>
+          <h3 class="service-title">Shoe Cleaning &amp; Spa</h3>
+          <p class="service-desc">Deep ultrasonic foam cleaning, stain removal, and conditioning for sports, sneakers, and luxury footwear.</p>
+          <ul class="service-features-list">
+            <li><i class="fas fa-check-circle"></i> Sports, canvas &amp; designer sneakers</li>
+            <li><i class="fas fa-check-circle"></i> Leather &amp; suede revitalization</li>
+            <li><i class="fas fa-check-circle"></i> Midsole whitening &amp; deodorization</li>
+          </ul>
+          <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem;">
+            <span style="font-weight: 800; color: var(--primary); font-size: 1.25rem;">Starting ₹199</span>
+            <button onclick="openBookingModal('Shoe Cleaning & Spa')" class="btn btn-outline btn-sm">Book Service</button>
+          </div>
+        </div>
+
+        <!-- Service 3: Leather Care -->
+        <div class="service-card">
+          <div class="service-icon-wrap"><i class="fas fa-briefcase"></i></div>
+          <h3 class="service-title">Leather &amp; Handbag Care</h3>
+          <p class="service-desc">Artisan care for pure leather jackets, luxury handbags, purses, wallets, and accessories.</p>
+          <ul class="service-features-list">
+            <li><i class="fas fa-check-circle"></i> Certified leather artisans</li>
+            <li><i class="fas fa-check-circle"></i> Natural organic oil conditioning</li>
+            <li><i class="fas fa-check-circle"></i> Gentle stain extraction &amp; buff</li>
+          </ul>
+          <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem;">
+            <span style="font-weight: 800; color: var(--primary); font-size: 1.25rem;">Starting ₹249</span>
+            <button onclick="openBookingModal('Leather & Handbag Care')" class="btn btn-outline btn-sm">Book Service</button>
+          </div>
+        </div>
+
+        <!-- Service 4: Curtain Cleaning -->
+        <div class="service-card">
+          <div class="service-icon-wrap"><i class="fas fa-window-maximize"></i></div>
+          <h3 class="service-title">Curtain Dry Cleaning</h3>
+          <p class="service-desc">Silk, Cotton, Velvet, Chenille &amp; Blackout drapes cleaned and pleat steam pressed.</p>
+          <ul class="service-features-list">
+            <li><i class="fas fa-check-circle"></i> Dust &amp; allergen extraction</li>
+            <li><i class="fas fa-check-circle"></i> German steam pleat iron finish</li>
+            <li><i class="fas fa-check-circle"></i> Safe for sheer &amp; blackout fabrics</li>
+          </ul>
+          <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem;">
+            <span style="font-weight: 800; color: var(--primary); font-size: 1.25rem;">Starting ₹149</span>
+            <button onclick="openBookingModal('Curtain Dry Cleaning')" class="btn btn-outline btn-sm">Book Service</button>
+          </div>
+        </div>
+
+        <!-- Service 5: Carpet Cleaning -->
+        <div class="service-card">
+          <div class="service-icon-wrap"><i class="fas fa-border-all"></i></div>
+          <h3 class="service-title">Carpet Deep Cleaning</h3>
+          <p class="service-desc">Persian, Silk, Turkish &amp; Wool carpets washed with deep extraction and odor neutralizers.</p>
+          <ul class="service-features-list">
+            <li><i class="fas fa-check-circle"></i> Intense deep fiber extraction</li>
+            <li><i class="fas fa-check-circle"></i> Anti-microbial disinfection</li>
+            <li><i class="fas fa-check-circle"></i> Original texture &amp; sheen restoration</li>
+          </ul>
+          <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem;">
+            <span style="font-weight: 800; color: var(--primary); font-size: 1.25rem;">Starting ₹299</span>
+            <button onclick="openBookingModal('Carpet Deep Cleaning')" class="btn btn-outline btn-sm">Book Service</button>
+          </div>
+        </div>
+
+        <!-- Service 6: Laundry & Steam Iron -->
+        <div class="service-card">
+          <div class="service-icon-wrap"><i class="fas fa-tshirt"></i></div>
+          <h3 class="service-title">Daily Laundry &amp; Steam Press</h3>
+          <p class="service-desc">Everyday wash &amp; fold, crisp hanger steam pressing with Whitex technology for whites.</p>
+          <ul class="service-features-list">
+            <li><i class="fas fa-check-circle"></i> 100% individual batch wash (zero mixing)</li>
+            <li><i class="fas fa-check-circle"></i> Organic US/German mild detergents</li>
+            <li><i class="fas fa-check-circle"></i> High-pressure crease finish</li>
+          </ul>
+          <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem;">
+            <span style="font-weight: 800; color: var(--primary); font-size: 1.25rem;">₹79 / kg</span>
+            <button onclick="openBookingModal('Daily Laundry & Steam Press')" class="btn btn-outline btn-sm">Book Service</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Delivery Options Section -->
+  <section class="section" id="delivery" style="background: var(--bg-subtle);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Convenient Timelines</span>
+        <h2 class="section-title">Delivery Options</h2>
+        <p class="section-subtitle">Free doorstep pickup and flexible delivery tailored to your busy schedule.</p>
+      </div>
+
+      <div class="delivery-grid">
+        <div class="delivery-card">
+          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 1rem;">
+            <div class="service-icon-wrap" style="margin-bottom: 0; background: var(--primary-light); color: var(--primary);">
+              <i class="fas fa-truck"></i>
+            </div>
+            <div>
+              <h4>Regular Delivery</h4>
+              <span class="badge badge-success">Free (No extra charges)</span>
+            </div>
+          </div>
+          <ul class="delivery-list">
+            <li><i class="fas fa-clock text-primary"></i> <b>Daily Laundry:</b> 48 - 72 Hours</li>
+            <li><i class="fas fa-clock text-primary"></i> <b>Dry Cleaning:</b> 72 Hours</li>
+            <li><i class="fas fa-clock text-primary"></i> <b>Shoe Spa:</b> 3 to 5 Days</li>
+            <li><i class="fas fa-clock text-primary"></i> <b>Heavy Curtains/Carpets:</b> 5 to 7 Days</li>
+          </ul>
+        </div>
+
+        <div class="delivery-card express">
+          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 1rem;">
+            <div class="service-icon-wrap" style="margin-bottom: 0; background: var(--secondary-light); color: var(--secondary);">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <div>
+              <h4>Express 24h Delivery</h4>
+              <span class="badge badge-gold">1.5x Premium Speed</span>
+            </div>
+          </div>
+          <ul class="delivery-list">
+            <li><i class="fas fa-rocket" style="color: var(--secondary);"></i> <b>24 Hours Super Express Delivery</b></li>
+            <li><i class="fas fa-rocket" style="color: var(--secondary);"></i> <b>Next-Day Priority Processing</b></li>
+            <li><i class="fas fa-rocket" style="color: var(--secondary);"></i> <b>Dedicated Fast-Track Hub Handover</b></li>
+            <li><i class="fas fa-rocket" style="color: var(--secondary);"></i> Available for urgent suits, sarees &amp; daily wear</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7-Step Garment Process Section -->
+  <section class="section" id="process">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Scientific Methodology</span>
+        <h2 class="section-title">Our 7-Step Garment Care Process</h2>
+        <p class="section-subtitle">Specialized Italian &amp; German machinery paired with master craftsmen at every stage.</p>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-card">
+          <div class="process-num">1</div>
+          <div>
+            <h5>Segregation</h5>
+            <p>Inspection based on care label, weave, color bleed risk, and fabric sensitivity.</p>
+          </div>
+        </div>
+
+        <div class="process-card">
+          <div class="process-num">2</div>
+          <div>
+            <h5>Spot Treatment</h5>
+            <p>Italian ultrasonic spotting guns with organic American stain-release agents.</p>
+          </div>
+        </div>
+
+        <div class="process-card">
+          <div class="process-num">3</div>
+          <div>
+            <h5>Hydrocarbon Cleaning</h5>
+            <p>World-renowned German closed-loop Hydrocarbon technology with fabric conditioners.</p>
+          </div>
+        </div>
+
+        <div class="process-card">
+          <div class="process-num">4</div>
+          <div>
+            <h5>Steam Ironing</h5>
+            <p>Custom form finishers and German tension steam presses tailored to each garment.</p>
+          </div>
+        </div>
+
+        <div class="process-card">
+          <div class="process-num">5</div>
+          <div>
+            <h5>Quality Inspection</h5>
+            <p>Meticulous 5-point quality check for stain clearance, buttons, and finish.</p>
+          </div>
+        </div>
+
+        <div class="process-card">
+          <div class="process-num">6</div>
+          <div>
+            <h5>Bespoke Packaging</h5>
+            <p>Folded with tissue or hung in breathable garment covers with barcode tags.</p>
+          </div>
+        </div>
+
+        <div class="process-card" style="grid-column: 1 / -1;">
+          <div class="process-num">7</div>
+          <div>
+            <h5>Free Doorstep Delivery</h5>
+            <p>Delivered to your home in Udaipur in sanitized transport boxes with real-time tracking.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Live Price Estimator -->
+  <section class="section" id="calculator" style="background: #f1f5f3;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Instant Calculation</span>
+        <h2 class="section-title">Interactive Price Estimator</h2>
+        <p class="section-subtitle">Select your garments below to estimate your exact bill before booking.</p>
+      </div>
+
+      <div class="estimator-card">
+        <div class="estimator-grid">
+          <div>
+            <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 1.25rem;">Select Your Items</h3>
+            
+            <div class="estimator-item">
+              <div>
+                <h4 style="font-size: 0.98rem; font-weight: 700;">Men's Suit / Blazer Dry Clean</h4>
+                <span style="font-size: 0.85rem; color: var(--primary); font-weight: 700;">₹299 / piece</span>
+              </div>
+              <div class="counter-ctrl">
+                <button class="ctrl-btn" onclick="updateCalc('est-suit', -1)">-</button>
+                <span class="counter-val" id="est-suit" data-price="299">1</span>
+                <button class="ctrl-btn" onclick="updateCalc('est-suit', 1)">+</button>
+              </div>
+            </div>
+
+            <div class="estimator-item">
+              <div>
+                <h4 style="font-size: 0.98rem; font-weight: 700;">Silk / Designer Saree Dry Clean</h4>
+                <span style="font-size: 0.85rem; color: var(--primary); font-weight: 700;">₹249 / piece</span>
+              </div>
+              <div class="counter-ctrl">
+                <button class="ctrl-btn" onclick="updateCalc('est-saree', -1)">-</button>
+                <span class="counter-val" id="est-saree" data-price="249">1</span>
+                <button class="ctrl-btn" onclick="updateCalc('est-saree', 1)">+</button>
+              </div>
+            </div>
+
+            <div class="estimator-item">
+              <div>
+                <h4 style="font-size: 0.98rem; font-weight: 700;">Sneakers / Shoes Deep Spa</h4>
+                <span style="font-size: 0.85rem; color: var(--primary); font-weight: 700;">₹199 / pair</span>
+              </div>
+              <div class="counter-ctrl">
+                <button class="ctrl-btn" onclick="updateCalc('est-shoes', -1)">-</button>
+                <span class="counter-val" id="est-shoes" data-price="199">1</span>
+                <button class="ctrl-btn" onclick="updateCalc('est-shoes', 1)">+</button>
+              </div>
+            </div>
+
+            <div class="estimator-item">
+              <div>
+                <h4 style="font-size: 0.98rem; font-weight: 700;">Daily Laundry Wash &amp; Steam Press</h4>
+                <span style="font-size: 0.85rem; color: var(--primary); font-weight: 700;">₹79 / kg</span>
+              </div>
+              <div class="counter-ctrl">
+                <button class="ctrl-btn" onclick="updateCalc('est-wash', -1)">-</button>
+                <span class="counter-val" id="est-wash" data-price="79">4</span>
+                <button class="ctrl-btn" onclick="updateCalc('est-wash', 1)">+</button>
+              </div>
+            </div>
+
+            <div class="estimator-item">
+              <div>
+                <h4 style="font-size: 0.98rem; font-weight: 700;">Heavy Blanket / Double Quilt</h4>
+                <span style="font-size: 0.85rem; color: var(--primary); font-weight: 700;">₹299 / piece</span>
+              </div>
+              <div class="counter-ctrl">
+                <button class="ctrl-btn" onclick="updateCalc('est-quilt', -1)">-</button>
+                <span class="counter-val" id="est-quilt" data-price="299">0</span>
+                <button class="ctrl-btn" onclick="updateCalc('est-quilt', 1)">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Calculation & CTA -->
+          <div class="estimator-summary">
+            <div>
+              <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #a7f3d0; font-weight: 700;">Total Estimate</span>
+              <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.5rem;">
+                <span class="estimator-total-amount" id="vastria-total-estimate">₹1,063</span>
+                <span style="font-size: 0.9rem; color: #e2e8f0;">(All inclusive)</span>
+              </div>
+
+              <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem; margin-bottom: 1.5rem;">
+                <p style="font-size: 0.88rem; color: #e2e8f0; margin-bottom: 0.5rem;"><i class="fas fa-check text-success"></i> Free Pickup &amp; Delivery in Udaipur</p>
+                <p style="font-size: 0.88rem; color: #e2e8f0; margin-bottom: 0.5rem;"><i class="fas fa-check text-success"></i> Individual wash per customer (No mixing)</p>
+                <p style="font-size: 0.88rem; color: #e2e8f0;"><i class="fas fa-check text-success"></i> 99% Stain Removal Guarantee</p>
+              </div>
+            </div>
+
+            <button onclick="openBookingModal()" class="btn btn-gold btn-lg" style="width: 100%;">
+              <i class="fas fa-calendar-check"></i> Book With This Selection
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose VASTRIA -->
+  <section class="section" id="why-us">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">The VASTRIA Advantage</span>
+        <h2 class="section-title">Why Udaipur Trusts VASTRIA</h2>
+        <p class="section-subtitle">European state-of-the-art machinery meets gentle fabric expertise.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon"><i class="fas fa-leaf"></i></div>
+          <h4>Hydrocarbon Technology</h4>
+          <p>Udaipur's finest eco-friendly closed-loop Hydrocarbon dry cleaning. 100% gentle on delicate threads.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+          <h4>99% Stain Guarantee</h4>
+          <p>Advanced Italian ultrasonic spot extraction guns for food, grease, wine, and ink stains.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon"><i class="fas fa-users-cog"></i></div>
+          <h4>Master Craftsmen</h4>
+          <p>Certified fabric technicians with deep expertise in zari, silks, pashminas, and high-end blazers.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon"><i class="fas fa-truck-pickup"></i></div>
+          <h4>Free Home Pickup</h4>
+          <p>Punctual collection and delivery at your doorstep across all Udaipur locations.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon"><i class="fas fa-bolt"></i></div>
+          <h4>24h Express Available</h4>
+          <p>Need your clothes urgently for an event or travel? Get same-day &amp; next-day fast delivery.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon"><i class="fas fa-qrcode"></i></div>
+          <h4>Live Order Tracking</h4>
+          <p>Track your garments in real-time from pickup to washing, quality check, and final delivery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" style="background: var(--bg-subtle);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Got Questions?</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Everything you need to know about our services in Udaipur.</p>
+      </div>
+
+      <div class="faq-wrap">
+        <div class="faq-item active">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>What makes VASTRIA dry cleaning different from others?</span>
+            <i class="fas fa-plus faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <p>We use the latest European Hydrocarbon dry-cleaning technology, which is 100% eco-friendly and fabric-safe. Unlike harsh chemicals like PERC, our process ensures zero shrinkage, preserved shine, no foul chemical odor, and 99% stain removal guarantee.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>How long does the cleaning process take?</span>
+            <i class="fas fa-plus faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Regular turnaround: Laundry &amp; Wash – 48 hours, Dry Cleaning – 72 hours, Shoe Spa – 3 to 5 days. For urgent requirements, our Express Delivery option delivers your clothes within 24 hours.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Do you provide free pickup and delivery in Udaipur?</span>
+            <i class="fas fa-plus faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Yes, we provide free doorstep pickup and delivery across Udaipur (Savina, Hiran Magri, Fatehpura, Bhuwana, Sukher, City Area, etc.) for all orders above ₹300.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Is my delicate silk saree and designer suit safe?</span>
+            <i class="fas fa-plus faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Absolutely. We follow a strict 7-step inspection and treatment process. Silks, hand-embroidered lehengas, zari sarees, and woollens are individually tagged and processed in customized solvent cycles.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Location Map Section -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Visit or Contact Us</span>
+        <h2 class="section-title">Get In Touch With VASTRIA</h2>
+        <p class="section-subtitle">We are located at Savina, Udaipur. Call or WhatsApp us anytime!</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2.5rem; align-items: start;">
+        
+        <!-- Contact Details Card -->
+        <div class="service-card" style="padding: 2.5rem;">
+          <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 1.5rem; color: var(--primary-dark);">
+            <i class="fas fa-store text-warning"></i> Store Location &amp; Contact Info
+          </h3>
+
+          <div style="display: flex; gap: 14px; margin-bottom: 1.25rem;">
+            <div class="service-icon-wrap" style="width: 44px; height: 44px; font-size: 1.1rem; min-width: 44px; margin-bottom: 0;">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <h5 style="font-weight: 700; margin-bottom: 2px;">Main Workshop &amp; Hub:</h5>
+              <p style="color: var(--text-muted); font-size: 0.92rem;">
+                Goutam Budh Nagar, Near by Dainik Navjyoti, Savina, Udaipur, Rajasthan 313002
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; margin-bottom: 1.25rem;">
+            <div class="service-icon-wrap" style="width: 44px; height: 44px; font-size: 1.1rem; min-width: 44px; margin-bottom: 0;">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div>
+              <h5 style="font-weight: 700; margin-bottom: 2px;">Phone Numbers (Direct Call):</h5>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">
+                <a href="tel:+918005975274" style="color: var(--primary); font-weight: 700;">+91 8005975274</a>, 
+                <a href="tel:+919413752745" style="color: var(--primary); font-weight: 700;">+91 9413752745</a>
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; margin-bottom: 1.5rem;">
+            <div class="service-icon-wrap" style="width: 44px; height: 44px; font-size: 1.1rem; min-width: 44px; margin-bottom: 0;">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <h5 style="font-weight: 700; margin-bottom: 2px;">Email Support:</h5>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">
+                <a href="mailto:info@vastria.com" style="color: var(--primary); font-weight: 600;">info@vastria.com</a>
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="tel:+918005975274" class="btn btn-primary"><i class="fas fa-phone-alt"></i> Call +91 8005975274</a>
+            <a href="https://wa.me/918005975274?text=Hi%20VASTRIA%2C%20I%20need%20laundry%20service" target="_blank" class="btn btn-secondary" style="color: #059669; border-color: #059669;">
+              <i class="fab fa-whatsapp"></i> WhatsApp Us
+            </a>
+          </div>
+        </div>
+
+        <!-- Google Maps Embed -->
+        <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--border); height: 380px;">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14518.239384792697!2d73.70425!3d24.5583!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3967eff30df9f1f7%3A0x94fee2fa30e313de!2sSavina%2C%20Udaipur%2C%20Rajasthan!5e0!3m2!1sen!2sin!4v1754308762936!5m2!1sen!2sin" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+          </iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom: 1rem;">
+            <div class="logo-icon"><i class="fas fa-crown"></i></div>
+            <div>
+              <span style="color: #fef08a;">VASTRIA</span>
+              <span class="logo-subtext" style="color: #fef08a;">Premium Garment Care</span>
+            </div>
+          </div>
+          <p style="font-size: 0.92rem; color: #cbd5e1; max-width: 320px; line-height: 1.6;">
+            Udaipur's most trusted premium laundry, Hydrocarbon dry cleaning, shoe restoration spa, and home fabric care service.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="book.html">Premium Dry Cleaning</a></li>
+            <li><a href="book.html">Shoe Spa &amp; Restoration</a></li>
+            <li><a href="book.html">Leather &amp; Bag Spa</a></li>
+            <li><a href="book.html">Curtain Dry Cleaning</a></li>
+            <li><a href="book.html">Carpet Deep Cleaning</a></li>
+            <li><a href="book.html">Daily Wash &amp; Steam Press</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Navigation</h4>
+          <ul>
+            <li><a href="book.html">Book Doorstep Pickup</a></li>
+            <li><a href="track.html">Live Order Tracking</a></li>
+            <li><a href="dashboard.html">Customer Account</a></li>
+            <li><a href="admin.html">Admin Operations Portal</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact Details</h4>
+          <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 8px;">
+            <i class="fas fa-map-marker-alt text-warning"></i> Goutam Budh Nagar, Near by Dainik Navjyoti, Savina, Udaipur, Rajasthan 313002
+          </p>
+          <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 8px;">
+            <i class="fas fa-phone-alt text-warning"></i> +91 8005975274, +91 9413752745
+          </p>
+          <p style="font-size: 0.9rem; color: #cbd5e1;">
+            <i class="fas fa-envelope text-warning"></i> info@vastria.com
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2026 VASTRIA Garment Care Pvt Ltd. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- BOOKING MODAL POPUP -->
+  <div class="modal-backdrop" id="booking-modal-popup">
+    <div class="modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <div>
+          <span class="badge badge-gold" style="margin-bottom: 4px;">Easy 60-Sec Booking</span>
+          <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--primary-dark);" id="popup-modal-heading">Schedule Doorstep Pickup</h3>
+        </div>
+        <button onclick="closeBookingModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">&times;</button>
+      </div>
+
+      <form id="popup-booking-form" onsubmit="handlePopupBookingSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Select Service Required *</label>
+          <select id="modal-service-select" class="form-select" required>
+            <option value="Premium Dry Cleaning">Premium Dry Cleaning (Hydrocarbon)</option>
+            <option value="Daily Laundry Wash & Steam Press">Daily Laundry Wash &amp; Steam Press</option>
+            <option value="Shoe Cleaning & Spa">Shoe Cleaning &amp; Restoration Spa</option>
+            <option value="Leather & Bag Care">Leather Care &amp; Handbag Spa</option>
+            <option value="Curtain & Carpet Care">Curtain &amp; Carpet Deep Cleaning</option>
+          </select>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Your Full Name *</label>
+            <input type="text" id="modal-cust-name" class="form-input" placeholder="e.g. Yash Vardhan" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number *</label>
+            <input type="tel" id="modal-cust-phone" class="form-input" placeholder="e.g. 9812345678" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Pickup Date *</label>
+            <input type="date" id="modal-pickup-date" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Pickup Slot *</label>
+            <select id="modal-pickup-slot" class="form-select">
+              <option value="08:00 AM - 10:00 AM">08:00 AM - 10:00 AM</option>
+              <option value="10:00 AM - 12:00 PM">10:00 AM - 12:00 PM</option>
+              <option value="02:00 PM - 04:00 PM">02:00 PM - 04:00 PM</option>
+              <option value="06:00 PM - 08:00 PM">06:00 PM - 08:00 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Pickup Address in Udaipur *</label>
+          <textarea id="modal-cust-address" class="form-textarea" rows="2" placeholder="House/Flat No, Landmark, Area, Udaipur" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg" id="btn-modal-book-submit" style="width: 100%; margin-top: 0.5rem;">
+          <i class="fas fa-calendar-check"></i> Confirm &amp; Schedule Pickup
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // FAQ Toggle
+    function toggleFAQ(el) {
+      const parent = el.parentElement;
+      parent.classList.toggle('active');
+    }
+
+    // Modal Popup Control
+    function openBookingModal(serviceName) {
+      if (serviceName) {
+        const select = document.getElementById('modal-service-select');
+        for (let i = 0; i < select.options.length; i++) {
+          if (select.options[i].text.includes(serviceName) || select.options[i].value.includes(serviceName)) {
+            select.selectedIndex = i;
+            break;
+          }
+        }
+      }
+      
+      const user = getCurrentUser();
+      if (user) {
+        if (document.getElementById('modal-cust-name')) document.getElementById('modal-cust-name').value = user.name || '';
+        if (document.getElementById('modal-cust-phone')) document.getElementById('modal-cust-phone').value = user.phone || '';
+        if (document.getElementById('modal-cust-address') && user.address) document.getElementById('modal-cust-address').value = user.address;
+      }
+
+      // Default tomorrow date
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const pDate = document.getElementById('modal-pickup-date');
+      if (pDate) {
+        pDate.min = new Date().toISOString().split('T')[0];
+        pDate.value = tomorrow.toISOString().split('T')[0];
+      }
+
+      document.getElementById('booking-modal-popup').classList.add('show');
+    }
+
+    function closeBookingModal() {
+      document.getElementById('booking-modal-popup').classList.remove('show');
+    }
+
+    // Handle Quick Modal Booking Submission
+    async function handlePopupBookingSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-modal-book-submit');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Scheduling...`;
+
+      const serviceName = document.getElementById('modal-service-select').value;
+      const customer_name = document.getElementById('modal-cust-name').value.trim();
+      const customer_phone = document.getElementById('modal-cust-phone').value.trim();
+      const pickup_date = document.getElementById('modal-pickup-date').value;
+      const pickup_time_slot = document.getElementById('modal-pickup-slot').value;
+      const pickup_address = document.getElementById('modal-cust-address').value.trim();
+
+      const payload = {
+        customer_name,
+        customer_phone,
+        pickup_address,
+        pickup_date,
+        pickup_time_slot,
+        payment_method: 'cash_on_delivery',
+        items: [{
+          service_id: 1,
+          service_name: serviceName,
+          quantity: 1,
+          unit_price: 299
+        }]
+      };
+
+      try {
+        const token = getAuthToken();
+        const headers = { 'Content-Type': 'application/json' };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+        const res = await fetch(`${API_BASE}/orders/book`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          closeBookingModal();
+          showToast(`Pickup scheduled! Tracking ID: ${data.tracking_id}`, 'success');
+          setTimeout(() => {
+            window.location.href = `track.html?id=${data.tracking_id}`;
+          }, 1200);
+        } else {
+          showToast(data.message || 'Booking failed', 'error');
+          btn.disabled = false;
+          btn.innerHTML = `<i class="fas fa-calendar-check"></i> Confirm & Schedule Pickup`;
+        }
+      } catch (err) {
+        showToast('Network error while booking', 'error');
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fas fa-calendar-check"></i> Confirm & Schedule Pickup`;
+      }
+    }
+
+    // Handle Hero Section Quick Form
+    async function handleHeroQuickSubmit(e) {
+      e.preventDefault();
+      const serviceName = document.getElementById('hero-service-type').value;
+      const name = document.getElementById('hero-cust-name').value.trim();
+      const phone = document.getElementById('hero-cust-phone').value.trim();
+      const address = document.getElementById('hero-cust-address').value.trim();
+
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      const payload = {
+        customer_name: name,
+        customer_phone: phone,
+        pickup_address: address,
+        pickup_date: tomorrow.toISOString().split('T')[0],
+        pickup_time_slot: '10:00 AM - 12:00 PM',
+        items: [{ service_id: 1, service_name: serviceName, quantity: 1, unit_price: 299 }]
+      };
+
+      try {
+        const token = getAuthToken();
+        const headers = { 'Content-Type': 'application/json' };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+        const res = await fetch(`${API_BASE}/orders/book`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast(`Pickup confirmed! Tracking ID: ${data.tracking_id}`, 'success');
+          setTimeout(() => {
+            window.location.href = `track.html?id=${data.tracking_id}`;
+          }, 1200);
+        } else {
+          showToast(data.message || 'Could not schedule pickup', 'error');
+        }
+      } catch (err) {
+        showToast('Network error while submitting', 'error');
+      }
+    }
+
+    // Calculator updates
+    function updateCalc(id, delta) {
+      const el = document.getElementById(id);
+      let val = parseInt(el.innerText) + delta;
+      if (val < 0) val = 0;
+      el.innerText = val;
+
+      const ids = ['est-suit', 'est-saree', 'est-shoes', 'est-wash', 'est-quilt'];
+      let total = 0;
+      ids.forEach(item => {
+        const span = document.getElementById(item);
+        if (span) {
+          const count = parseInt(span.innerText);
+          const price = parseFloat(span.getAttribute('data-price'));
+          total += count * price;
+        }
+      });
+      document.getElementById('vastria-total-estimate').innerText = `₹${total.toLocaleString('en-IN')}`;
+    }
+  </script>
+</body>
+</html>

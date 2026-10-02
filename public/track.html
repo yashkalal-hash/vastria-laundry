@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Laundry Order Tracking | FreshFold</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-crown"></i></div>
+        <div>
+          <span>VASTRIA</span>
+          <span class="logo-subtext">Premium Garment Care</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="book.html">Book Pickup</a></li>
+        <li><a href="track.html" class="active">Track Order</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-user-actions">
+        <!-- Injected via main.js -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- Track Hero Header -->
+  <section class="track-hero">
+    <div class="container" style="max-width: 650px;">
+      <span class="badge badge-primary" style="background: rgba(255,255,255,0.15); color: #38bdf8; margin-bottom: 1rem;">
+        <i class="fas fa-radar"></i> Real-Time Laundry Status
+      </span>
+      <h1 style="font-size: 2.25rem; font-weight: 800; margin-bottom: 1rem;">Track Your Order</h1>
+      <p style="color: #94a3b8; font-size: 1rem; margin-bottom: 1.75rem;">
+        Enter your 8-digit Tracking ID or registered mobile phone number.
+      </p>
+
+      <form class="quick-track-form" onsubmit="searchTrackingOrder(event)" style="background: #fff; padding: 6px; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);">
+        <input type="text" id="track-search-input" placeholder="e.g. FF-849201 or 9812345678" style="border: none; padding: 0.85rem 1rem;" required>
+        <button type="submit" class="btn btn-primary" id="btn-track-submit">
+          <i class="fas fa-search"></i> Track Order
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Tracking Result Container -->
+  <div class="container">
+    <div class="track-timeline-wrap" id="tracking-result-wrap" style="display: none;">
+      
+      <!-- Order Summary Card -->
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Tracking Code</span>
+          <h2 style="font-size: 1.75rem; font-weight: 800; color: var(--primary);" id="res-tracking-id">FF-849201</h2>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;" id="res-customer-info">Rahul Sharma • 9812345678</p>
+        </div>
+
+        <div style="text-align: right;">
+          <span class="badge badge-primary" style="font-size: 0.9rem; padding: 6px 14px;" id="res-status-badge">In Wash &amp; Clean</span>
+          <div style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-top: 6px;" id="res-total-amount">₹598</div>
+          <small style="color: var(--text-muted);" id="res-payment-badge">Cash on Delivery (Pending)</small>
+        </div>
+      </div>
+
+      <!-- Live Visual Progress Bar / Timeline -->
+      <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1.5rem;">Live Progress Timeline</h3>
+      <div class="timeline" id="timeline-container">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Order Items and Logistics Card -->
+      <div style="background: var(--bg-main); border-radius: var(--radius-lg); padding: 1.5rem; margin-top: 2.5rem;">
+        <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 1rem;"><i class="fas fa-clipboard-list text-primary"></i> Order Items &amp; Logistics Details</h4>
+        
+        <div class="form-grid-2" style="margin-bottom: 1.5rem;">
+          <div>
+            <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Pickup Schedule:</span>
+            <p style="font-size: 0.95rem; font-weight: 700;" id="res-pickup-details">2026-10-02 (10:00 AM - 12:00 PM)</p>
+          </div>
+          <div>
+            <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Delivery Schedule:</span>
+            <p style="font-size: 0.95rem; font-weight: 700;" id="res-delivery-details">2026-10-04 (04:00 PM - 06:00 PM)</p>
+          </div>
+        </div>
+
+        <div>
+          <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Pickup &amp; Delivery Address:</span>
+          <p style="font-size: 0.95rem; color: var(--text-main);" id="res-address">Flat 402, Green Valley Apartments, Mumbai</p>
+        </div>
+
+        <hr style="margin: 1rem 0; border: 0; border-top: 1px solid var(--border);">
+
+        <div id="res-items-list">
+          <!-- Items list -->
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="book.html" class="btn btn-primary"><i class="fas fa-plus"></i> Book Another Pickup</a>
+        <button onclick="window.print()" class="btn btn-secondary" style="margin-left: 10px;"><i class="fas fa-print"></i> Print Receipt</button>
+      </div>
+
+    </div>
+
+    <!-- Empty / Not found State -->
+    <div id="tracking-empty-state" style="text-align: center; padding: 4rem 1rem; max-width: 500px; margin: 0 auto;">
+      <div style="width: 70px; height: 70px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.5rem;">
+        <i class="fas fa-box-open"></i>
+      </div>
+      <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Ready to Track Your Laundry</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">Enter your Tracking ID above (e.g. <b>FF-849201</b>) to see live progress.</p>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/tracking.js"></script>
+</body>
+</html>

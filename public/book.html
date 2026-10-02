@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule Laundry Pickup | FreshFold</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .item-select-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.85rem;
+      background: #fff;
+      transition: var(--transition);
+    }
+    .item-select-card:hover {
+      border-color: #bae6fd;
+      background: #f8fafc;
+    }
+    .payment-option-card {
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: var(--transition);
+      margin-bottom: 0.85rem;
+    }
+    .payment-option-card.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-crown"></i></div>
+        <div>
+          <span>VASTRIA</span>
+          <span class="logo-subtext">Premium Garment Care</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="book.html" class="active">Book Pickup</a></li>
+        <li><a href="track.html">Track Order</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-user-actions">
+        <!-- Injected via main.js -->
+      </div>
+    </div>
+  </nav>
+
+  <div class="container booking-container">
+    <div class="section-header" style="margin-bottom: 2rem;">
+      <span class="section-tag">Easy 4-Step Booking</span>
+      <h1 class="section-title">Schedule Laundry Pickup</h1>
+      <p class="section-subtitle">Select your garments, pick a time slot, and our rider will be at your door.</p>
+    </div>
+
+    <!-- Stepper Navigation -->
+    <div class="stepper-header">
+      <div class="step-indicator active" id="step-indicator-1">
+        <div class="step-circle"><i class="fas fa-tshirt"></i></div>
+        <div class="step-title">1. Items</div>
+      </div>
+      <div class="step-indicator" id="step-indicator-2">
+        <div class="step-circle"><i class="fas fa-clock"></i></div>
+        <div class="step-title">2. Schedule</div>
+      </div>
+      <div class="step-indicator" id="step-indicator-3">
+        <div class="step-circle"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="step-title">3. Address</div>
+      </div>
+      <div class="step-indicator" id="step-indicator-4">
+        <div class="step-circle"><i class="fas fa-check"></i></div>
+        <div class="step-title">4. Review</div>
+      </div>
+    </div>
+
+    <!-- Multi-Step Card -->
+    <div class="booking-card">
+
+      <!-- STEP 1: Select Items -->
+      <div id="booking-step-1" class="step-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <h2 style="font-size: 1.35rem; font-weight: 700;">Step 1: Choose Garments &amp; Services</h2>
+          <div class="badge badge-primary" id="cart-item-count-badge">0 items selected</div>
+        </div>
+
+        <!-- Service Category Tabs -->
+        <div class="service-tabs" id="category-tabs">
+          <button class="tab-btn active" onclick="filterServicesCategory('all')">All Services</button>
+        </div>
+
+        <!-- Items List -->
+        <div id="service-items-list">
+          <p style="color: var(--text-muted); text-align: center; padding: 2rem;">Loading services...</p>
+        </div>
+
+        <!-- Sticky Bottom Summary for Step 1 -->
+        <div style="background: var(--bg-main); border-radius: var(--radius-md); padding: 1.25rem; display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem;">
+          <div>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Estimated Total:</span>
+            <h3 style="font-size: 1.5rem; color: var(--primary); font-weight: 800;" id="step1-total-price">₹0</h3>
+          </div>
+          <button class="btn btn-primary btn-lg" onclick="goToStep(2)">
+            Continue to Schedule <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Date & Slot Selection -->
+      <div id="booking-step-2" class="step-content" style="display: none;">
+        <h2 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 1.5rem;">Step 2: Pickup &amp; Delivery Schedule</h2>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-calendar-alt text-primary"></i> Pickup Date</label>
+            <input type="date" id="pickup-date" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-clock text-primary"></i> Pickup Time Slot</label>
+            <div class="slot-grid">
+              <div class="slot-radio-card selected" onclick="selectSlot('pickup', this, '08:00 AM - 10:00 AM')">08:00 AM - 10:00 AM</div>
+              <div class="slot-radio-card" onclick="selectSlot('pickup', this, '10:00 AM - 12:00 PM')">10:00 AM - 12:00 PM</div>
+              <div class="slot-radio-card" onclick="selectSlot('pickup', this, '02:00 PM - 04:00 PM')">02:00 PM - 04:00 PM</div>
+              <div class="slot-radio-card" onclick="selectSlot('pickup', this, '06:00 PM - 08:00 PM')">06:00 PM - 08:00 PM</div>
+            </div>
+            <input type="hidden" id="selected-pickup-slot" value="08:00 AM - 10:00 AM">
+          </div>
+        </div>
+
+        <hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid var(--border);">
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-truck text-secondary"></i> Expected Delivery Date</label>
+            <input type="date" id="delivery-date" class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-clock text-secondary"></i> Preferred Delivery Slot</label>
+            <div class="slot-grid">
+              <div class="slot-radio-card selected" onclick="selectSlot('delivery', this, '10:00 AM - 01:00 PM')">10:00 AM - 01:00 PM</div>
+              <div class="slot-radio-card" onclick="selectSlot('delivery', this, '02:00 PM - 05:00 PM')">02:00 PM - 05:00 PM</div>
+              <div class="slot-radio-card" onclick="selectSlot('delivery', this, '06:00 PM - 09:00 PM')">06:00 PM - 09:00 PM</div>
+            </div>
+            <input type="hidden" id="selected-delivery-slot" value="10:00 AM - 01:00 PM">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+          <button class="btn btn-secondary" onclick="goToStep(1)"><i class="fas fa-arrow-left"></i> Back</button>
+          <button class="btn btn-primary" onclick="goToStep(3)">Next: Address Details <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Customer Details & Address -->
+      <div id="booking-step-3" class="step-content" style="display: none;">
+        <h2 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 1.5rem;">Step 3: Contact &amp; Pickup Address</h2>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Full Name *</label>
+            <input type="text" id="cust-name" class="form-input" placeholder="e.g. Rahul Sharma" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Mobile Phone Number *</label>
+            <input type="tel" id="cust-phone" class="form-input" placeholder="e.g. 9812345678" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address (For invoice &amp; tracking updates)</label>
+          <input type="email" id="cust-email" class="form-input" placeholder="e.g. rahul@example.com">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Pickup &amp; Delivery Address *</label>
+          <textarea id="cust-address" class="form-textarea" rows="3" placeholder="House/Flat No, Building name, Street, Landmark, City, Pincode" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Special Instructions for Laundry Rider / Washer (Optional)</label>
+          <input type="text" id="cust-notes" class="form-input" placeholder="e.g. Gentle cycle for linen shirts, starch collar, separate whites">
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+          <button class="btn btn-secondary" onclick="goToStep(2)"><i class="fas fa-arrow-left"></i> Back</button>
+          <button class="btn btn-primary" onclick="goToStep(4)">Review &amp; Confirm <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Review & Payment Selection -->
+      <div id="booking-step-4" class="step-content" style="display: none;">
+        <h2 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 1.5rem;">Step 4: Order Summary &amp; Confirmation</h2>
+
+        <!-- Order Summary Breakdown -->
+        <div style="background: var(--bg-main); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem;">Selected Services</h3>
+          <div id="review-items-list" style="margin-bottom: 1rem;"></div>
+
+          <div style="border-top: 1px solid var(--border); padding-top: 1rem; display: flex; justify-content: space-between; align-items: baseline;">
+            <span style="font-size: 1.1rem; font-weight: 700;">Grand Total:</span>
+            <span style="font-size: 1.6rem; font-weight: 800; color: var(--primary);" id="review-grand-total">₹0</span>
+          </div>
+        </div>
+
+        <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem;">Payment Method</h3>
+        
+        <div class="payment-option-card selected" onclick="selectPayment(this, 'cash_on_delivery')">
+          <i class="fas fa-money-bill-wave text-success" style="font-size: 1.5rem;"></i>
+          <div>
+            <h4 style="font-size: 0.95rem; font-weight: 700;">Cash on Delivery / Card on Pickup</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Pay the rider when they arrive to collect or deliver.</p>
+          </div>
+        </div>
+
+        <div class="payment-option-card" onclick="selectPayment(this, 'online_upi')">
+          <i class="fas fa-qrcode text-primary" style="font-size: 1.5rem;"></i>
+          <div>
+            <h4 style="font-size: 0.95rem; font-weight: 700;">UPI / QR Code at Doorstep</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Google Pay, PhonePe, Paytm QR scanned upon pickup.</p>
+          </div>
+        </div>
+        <input type="hidden" id="selected-payment-method" value="cash_on_delivery">
+
+        <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+          <button class="btn btn-secondary" onclick="goToStep(3)"><i class="fas fa-arrow-left"></i> Back</button>
+          <button class="btn btn-primary btn-lg" id="btn-submit-order" onclick="submitBookingOrder()">
+            <i class="fas fa-check-circle"></i> Confirm &amp; Schedule Pickup
+          </button>
+        </div>
+      </div>
+
+      <!-- SUCCESS SCREEN -->
+      <div id="booking-success" style="display: none; text-align: center; padding: 2rem 0;">
+        <div style="width: 76px; height: 76px; background: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 1.5rem;">
+          <i class="fas fa-check"></i>
+        </div>
+        <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;">Pickup Scheduled Successfully!</h2>
+        <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 1.5rem;">
+          Your order has been assigned to our nearest pickup hub.
+        </p>
+
+        <div style="background: var(--bg-main); border-radius: var(--radius-md); padding: 1.5rem; max-width: 400px; margin: 0 auto 2rem; border: 1.5px dashed var(--primary);">
+          <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Your Tracking ID</span>
+          <h3 style="font-size: 2rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; margin: 6px 0;" id="success-tracking-id">FF-XXXXXX</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Save this code to track order status in real time.</p>
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+          <a id="success-track-btn" href="track.html" class="btn btn-primary btn-lg">
+            <i class="fas fa-satellite-dish"></i> Live Track Order
+          </a>
+          <a href="index.html" class="btn btn-secondary btn-lg">
+            <i class="fas fa-home"></i> Back to Home
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/booking.js"></script>
+</body>
+</html>

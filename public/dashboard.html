@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Dashboard | FreshFold</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-crown"></i></div>
+        <div>
+          <span>VASTRIA</span>
+          <span class="logo-subtext">Premium Garment Care</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="book.html">Book Pickup</a></li>
+        <li><a href="track.html">Track Order</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-user-actions">
+        <!-- Injected via main.js -->
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="padding-top: 3rem; padding-bottom: 4rem;">
+    <!-- Customer Welcome Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="font-size: 2rem; font-weight: 800;">My Laundry Dashboard</h1>
+        <p style="color: var(--text-muted);" id="user-greeting">Welcome back, Customer!</p>
+      </div>
+      <a href="book.html" class="btn btn-primary"><i class="fas fa-plus"></i> New Pickup Order</a>
+    </div>
+
+    <!-- Customer Details & Order History Grid -->
+    <div style="display: grid; grid-template-columns: 1fr 2.5fr; gap: 2rem;">
+      
+      <!-- Profile & Address Card -->
+      <div class="booking-card" style="height: fit-content;">
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1.25rem;">
+          <i class="fas fa-user-circle text-primary"></i> My Profile
+        </h3>
+
+        <form id="profile-form" onsubmit="updateCustomerProfile(event)">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="prof-name" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" id="prof-email" class="form-input" disabled style="background: var(--bg-main);">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input type="tel" id="prof-phone" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Default Pickup Address</label>
+            <textarea id="prof-address" class="form-textarea" rows="3" placeholder="Enter default address"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm" style="width: 100%;">Save Changes</button>
+        </form>
+      </div>
+
+      <!-- Orders List Card -->
+      <div>
+        <div class="table-card">
+          <div class="table-header">
+            <h3 style="font-size: 1.15rem; font-weight: 700;">Order History &amp; Active Requests</h3>
+            <button onclick="loadCustomerOrders()" class="btn btn-secondary btn-sm"><i class="fas fa-sync-alt"></i> Refresh</button>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Tracking ID</th>
+                  <th>Pickup Date</th>
+                  <th>Items</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="customer-orders-tbody">
+                <tr>
+                  <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">Loading orders...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

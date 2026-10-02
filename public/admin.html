@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Operations Center | FreshFold Laundry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-crown"></i></div>
+        <div>
+          <span>VASTRIA</span>
+          <span class="logo-subtext">Admin Hub</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <span id="admin-user-tag" style="font-weight: 700; font-size: 0.9rem; color: var(--text-main);">Admin</span>
+        <button onclick="logout()" class="btn btn-outline btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div style="margin-bottom: 2rem; padding: 0 0.5rem;">
+        <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 800;">Management</span>
+      </div>
+
+      <div class="admin-nav-item active" onclick="switchAdminTab('orders', this)">
+        <i class="fas fa-dolly"></i> All Laundry Orders
+      </div>
+      <div class="admin-nav-item" onclick="switchAdminTab('customers', this)">
+        <i class="fas fa-users"></i> Registered Customers
+      </div>
+      <div class="admin-nav-item" onclick="switchAdminTab('services', this)">
+        <i class="fas fa-tags"></i> Services &amp; Pricing
+      </div>
+      <div class="admin-nav-item" onclick="switchAdminTab('inquiries', this)">
+        <i class="fas fa-envelope-open-text"></i> Contact Messages
+      </div>
+
+      <div style="margin-top: 3rem; padding: 1rem; background: #1e293b; border-radius: var(--radius-md); font-size: 0.85rem;">
+        <span style="color: #38bdf8; font-weight: 700;"><i class="fas fa-lightbulb"></i> Pro-Tip:</span>
+        <p style="color: #94a3b8; margin-top: 4px;">Update order status to trigger live timeline notifications on customer tracking!</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-content">
+
+      <!-- KPI Metrics Row -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <h5>Total Revenue</h5>
+            <h2 id="kpi-revenue">₹0</h2>
+          </div>
+          <div class="kpi-icon" style="background: #dcfce7; color: #16a34a;">
+            <i class="fas fa-rupee-sign"></i>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <h5>Active Processing</h5>
+            <h2 id="kpi-pending">0</h2>
+          </div>
+          <div class="kpi-icon" style="background: #fef3c7; color: #d97706;">
+            <i class="fas fa-spinner"></i>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <h5>Total Orders</h5>
+            <h2 id="kpi-orders">0</h2>
+          </div>
+          <div class="kpi-icon" style="background: #e0f2fe; color: #0284c7;">
+            <i class="fas fa-clipboard-list"></i>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <h5>Customers</h5>
+            <h2 id="kpi-customers">0</h2>
+          </div>
+          <div class="kpi-icon" style="background: #ede9fe; color: #7c3aed;">
+            <i class="fas fa-user-friends"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 1: Orders Management -->
+      <div id="tab-orders" class="admin-tab-pane">
+        <div class="table-card">
+          <div class="table-header">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 800;">Order Processing &amp; Logistics</h3>
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Manage real-time order progression and delivery updates</p>
+            </div>
+
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <input type="text" id="admin-order-search" placeholder="Search ID / Customer / Phone..." class="form-input" style="width: 240px; padding: 0.5rem 0.8rem;" oninput="filterOrders()">
+              
+              <select id="admin-status-filter" class="form-select" style="width: 180px; padding: 0.5rem 0.8rem;" onchange="filterOrders()">
+                <option value="all">All Statuses</option>
+                <option value="Order Placed">Order Placed</option>
+                <option value="Pickup Scheduled">Pickup Scheduled</option>
+                <option value="Picked Up">Picked Up</option>
+                <option value="In Wash & Clean">In Wash &amp; Clean</option>
+                <option value="Ironing & Packing">Ironing &amp; Packing</option>
+                <option value="Out for Delivery">Out for Delivery</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+
+              <button onclick="loadAdminStatsAndOrders()" class="btn btn-secondary btn-sm"><i class="fas fa-sync-alt"></i></button>
+            </div>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Tracking ID</th>
+                  <th>Customer Info</th>
+                  <th>Pickup Slot</th>
+                  <th>Items &amp; Total</th>
+                  <th>Payment</th>
+                  <th>Current Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-orders-tbody">
+                <tr><td colspan="7" style="text-align: center; padding: 2rem;">Loading orders...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: Customers Management -->
+      <div id="tab-customers" class="admin-tab-pane" style="display: none;">
+        <div class="table-card">
+          <div class="table-header">
+            <h3 style="font-size: 1.25rem; font-weight: 800;">Registered Customer Accounts</h3>
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Customer Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Address</th>
+                  <th>Total Orders</th>
+                  <th>Total Spent</th>
+                </tr>
+              </thead>
+              <tbody id="admin-customers-tbody">
+                <tr><td colspan="6" style="text-align: center; padding: 2rem;">Loading customer records...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: Services & Pricing Management -->
+      <div id="tab-services" class="admin-tab-pane" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.25rem; font-weight: 800;">Service Catalog &amp; Pricing Manager</h3>
+          <button onclick="openAddServiceModal()" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add New Service</button>
+        </div>
+
+        <div class="table-card">
+          <div style="overflow-x: auto;">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Service Name</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Unit</th>
+                  <th>Turnaround</th>
+                  <th>Popular</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-services-tbody">
+                <tr><td colspan="7" style="text-align: center; padding: 2rem;">Loading services...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: Inquiries -->
+      <div id="tab-inquiries" class="admin-tab-pane" style="display: none;">
+        <div class="table-card">
+          <div class="table-header">
+            <h3 style="font-size: 1.25rem; font-weight: 800;">Customer Inquiries &amp; Feedback</h3>
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Name</th>
+                  <th>Email &amp; Phone</th>
+                  <th>Message</th>
+                </tr>
+              </thead>
+              <tbody id="admin-inquiries-tbody">
+                <tr><td colspan="4" style="text-align: center; padding: 2rem;">Loading inquiries...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- STATUS UPDATE MODAL -->
+  <div class="modal-backdrop" id="status-modal">
+    <div class="modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.35rem; font-weight: 800;">Update Order Status</h3>
+        <button onclick="closeStatusModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;">&times;</button>
+      </div>
+
+      <form id="status-update-form" onsubmit="saveOrderStatus(event)">
+        <input type="hidden" id="modal-order-id">
+
+        <div class="form-group">
+          <label class="form-label">Tracking ID</label>
+          <input type="text" id="modal-tracking-id" class="form-input" disabled style="font-weight: 800; background: var(--bg-main);">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Update Stage / Status</label>
+          <select id="modal-new-status" class="form-select" required>
+            <option value="Order Placed">Order Placed</option>
+            <option value="Pickup Scheduled">Pickup Scheduled</option>
+            <option value="Picked Up">Picked Up</option>
+            <option value="In Wash & Clean">In Wash &amp; Clean</option>
+            <option value="Ironing & Packing">Ironing &amp; Packing</option>
+            <option value="Out for Delivery">Out for Delivery</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Timeline Comment / Note for Customer</label>
+          <input type="text" id="modal-status-comment" class="form-input" placeholder="e.g. Garments packed on hangers and rider assigned.">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Payment Status</label>
+          <select id="modal-payment-status" class="form-select">
+            <option value="pending">Pending</option>
+            <option value="paid">Paid</option>
+          </select>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 2rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeStatusModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-status"><i class="fas fa-save"></i> Save &amp; Update Customer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT SERVICE MODAL -->
+  <div class="modal-backdrop" id="service-modal">
+    <div class="modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.35rem; font-weight: 800;" id="service-modal-title">Add Service</h3>
+        <button onclick="closeServiceModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;">&times;</button>
+      </div>
+
+      <form id="service-manage-form" onsubmit="saveServiceItem(event)">
+        <input type="hidden" id="svc-id">
+
+        <div class="form-group">
+          <label class="form-label">Service Name *</label>
+          <input type="text" id="svc-name" class="form-input" placeholder="e.g. Silk Saree Steam Clean" required>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Price (₹) *</label>
+            <input type="number" id="svc-price" class="form-input" placeholder="199" required min="1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Unit Type</label>
+            <select id="svc-unit" class="form-select">
+              <option value="piece">piece</option>
+              <option value="kg">kg</option>
+              <option value="pair">pair</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select id="svc-category" class="form-select">
+              <option value="1">Wash &amp; Fold</option>
+              <option value="2">Steam Iron &amp; Press</option>
+              <option value="3">Premium Dry Cleaning</option>
+              <option value="4">Shoe &amp; Bag Spa</option>
+              <option value="5">Home Care &amp; Bedding</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Turnaround (Hours)</label>
+            <input type="number" id="svc-turnaround" class="form-input" value="24">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Short Description</label>
+          <input type="text" id="svc-desc" class="form-input" placeholder="Care details">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 2rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeServiceModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Service</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | FreshFold Laundry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background: radial-gradient(circle at top, #e0f2fe, #f8fafc);">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-soap"></i></div>
+        <span>FreshFold</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="book.html">Book Pickup</a></li>
+        <li><a href="track.html">Track Order</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-user-actions"></div>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width: 520px; margin: 3.5rem auto 5rem;">
+    <div class="booking-card">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <div class="logo-icon" style="margin: 0 auto 1rem; width: 50px; height: 50px;">
+          <i class="fas fa-user-plus"></i>
+        </div>
+        <h2 style="font-size: 1.6rem; font-weight: 800;">Create Free Account</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Enjoy 1-click booking, order tracking, and pickup history</p>
+      </div>
+
+      <form id="register-form" onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" id="reg-name" class="form-input" placeholder="e.g. Yash Patel" required>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Email Address *</label>
+            <input type="email" id="reg-email" class="form-input" placeholder="yash@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number *</label>
+            <input type="tel" id="reg-phone" class="form-input" placeholder="9876543210" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Default Pickup Address</label>
+          <input type="text" id="reg-address" class="form-input" placeholder="Flat No, Building, Street, City">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password *</label>
+          <input type="password" id="reg-password" class="form-input" placeholder="Create a strong password" required minlength="6">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg" id="btn-reg-submit" style="width: 100%; margin-top: 0.5rem;">
+          <i class="fas fa-user-check"></i> Register Account
+        </button>
+      </form>
+
+      <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+        Already have an account? <a href="login.html" style="color: var(--primary); font-weight: 700;">Sign In</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    async function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const address = document.getElementById('reg-address').value.trim();
+      const password = document.getElementById('reg-password').value;
+      const btn = document.getElementById('btn-reg-submit');
+
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Creating Account...`;
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, phone, address, password })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          setAuthSession(data.token, data.user);
+          showToast('Account registered successfully!', 'success');
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 600);
+        } else {
+          showToast(data.message || 'Registration failed.', 'error');
+          btn.disabled = false;
+          btn.innerHTML = `<i class="fas fa-user-check"></i> Register Account`;
+        }
+      } catch (err) {
+        showToast('Network error during registration.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fas fa-user-check"></i> Register Account`;
+      }
+    }
+  </script>
+</body>
+</html>
